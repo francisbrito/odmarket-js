@@ -14,6 +14,6 @@ Requirements
 Installing
 ----------
 
-* Download & install Node.js from (nodejs.org)[http://nodejs.org]. Instructions on how to install it are on the site.
+* Download & install Node.js from [nodejs.org](http://nodejs.org). Instructions on how to install it are on the site.
 * On a terminal (command prompt) do: `cd path/to/project && npm install`
 * You're done. :D
