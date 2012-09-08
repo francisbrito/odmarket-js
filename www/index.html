@@ -32,6 +32,7 @@
         <div id="products" data-role="page" data-title="ODMarket | Products">
             <div data-role="header" data-position="fixed">
                 <h1>Products</h1>
+		<a href="index.html" data-role="button" data-icon="back" data-iconpos="notext">Back</a>
             </div>
             <div data-role="content">
                 <ul data-bind="foreach: productData" data-role="listview" data-filter="true">
@@ -48,6 +49,8 @@
         <div id="product-details" data-role="page" data-bind="pagebeforeshow: refreshUI('#product-details', 'page')">
             <div data-role="header">
                 <h1>Product Details</h1>
+		<a href="index.html" data-role="button" data-icon="home" data-iconpos="notext">Home</a>
+		<a href="index.html#products" data-role="button" data-icon="back" data-iconpos="notext">Back</a>
             </div>
             <div data-role="content" data-bind="with: chosenProductData">
                 <div data-role="fieldcontain">
