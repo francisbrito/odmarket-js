@@ -1,107 +1,116 @@
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>ODMarket &ndash; Your online store</title>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="initial-scale=1,width=device-width" />
-        <!--<link href="css/theme.css" rel="stylesheet" />-->
-        <!--JQuery/Mobile includes-->
-        <link href="lib/jqm/jquery.mobile.css" rel="stylesheet"/>
-        <script src="lib/jq/jquery.js"></script>
-        <script src="lib/jqm/jquery.mobile.js"></script>
-        <!--End includes-->
-        <!--Knockout includes-->
-        <script src="lib/ko/knockout.js"></script>
-        <!--End includes-->
-    </head>
-    <body>
-        <div id="home" data-role="page" data-title="ODMarket | Home">
-            <div data-role="header" data-position="fixed">
-                <h1>ODMarket</h1>
-            </div>
-            <div data-role="content">
-                <ul data-role="listview" data-inset="true">
-                    <li><a href="#products">Products</a></li>
-                    <li><a href="#">Categories</a></li>
-                    <li><a href="#">Suppliers</a></li>
-                </ul>
-            </div>
-            <div data-role="footer" data-position="fixed">
-                <h3><!--Blank--></h3>
-            </div>
-        </div>
-        <div id="products" data-role="page" data-title="ODMarket | Products">
-            <div data-role="header" data-position="fixed">
-                <h1>Products</h1>
-		<a href="index.html" data-role="button" data-icon="back" data-iconpos="notext">Back</a>
-            </div>
-            <div data-role="content">
-                <ul data-bind="foreach: productData" data-role="listview" data-filter="true">
-                    <li>
-                        <a data-bind="text: Name, click: $root.chooseProduct" href="#product-details"></a>
-                        <span data-bind="text: Price" class="ui-li-count"></span>
-                    </li>
-                </ul>
-            </div>
-            <div data-role="footer" data-position="fixed">
-                <h3><!--Blank--></h3>
-            </div>
-        </div>
-        <div id="product-details" data-role="page" data-bind="pagebeforeshow: refreshUI('#product-details', 'page')">
-            <div data-role="header">
-                <h1>Product Details</h1>
-		<a href="index.html" data-role="button" data-icon="home" data-iconpos="notext">Home</a>
-		<a href="index.html#products" data-role="button" data-icon="back" data-iconpos="notext">Back</a>
-            </div>
-            <div data-role="content" data-bind="with: chosenProductData">
-                <div data-role="fieldcontain">
-                    <label for="product-name">Name:</label>
-                    <input id="product-name" data-bind="value: Name" disabled="true"/>
-                </div>
-                <div data-role="fieldcontain">
-                    <label for="product-price">Price:</label>
-                    <input id="product-price" data-bind="value: Price" disabled="true"/>
-                </div>
-                <div data-role="fieldcontain">
-                    <label for="product-desc">Description:</label>
-                    <textarea id="product-desc" data-bind="value: Description" disabled="true"></textarea>
-                </div>
-            </div>
-            <div data-role="footer" data-position="fixed">
-                <h3><!--Blank--></h3>
-            </div>
-        </div>
-        <!--App Logic-->
-        <script>
-            function AppViewModel() {
-                var self = this; //To avoid some tricky bugs.
-                
-                //Data
-                self.productData = ko.observableArray([]);
-                self.chosenProductData = ko.observable();
-                
-                //Behaviours
-                self.chooseProduct = function(product){
-                    self.chosenProductData(product);
-                }
-                
-                self.loadProductData = function(){
-                    $.get('/api/products', function(data){
-                        self.productData(data.d);
-                        self.chosenProductData(data.d[0]); //Choose the first product by default.
-                    });
-                }
-                
-                //Helpers
-                self.refreshUI = function(ui, ctor){
-                    $(ui)[ctor](); //Calls specified constructor.
-                }
-            };
-            
-            var vm = new AppViewModel();
-            
-            vm.loadProductData();
-            
-            ko.applyBindings(vm);
-        </script>
-    </body>
+	<head>
+		<title>ODMarket &ndash; Your online store</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="initial-scale=1,width=device-width" />
+		<!--<link href="css/theme.css" rel="stylesheet" />-->
+		<!--JQuery/Mobile includes-->
+		<link href="lib/jqm/jquery.mobile.css" rel="stylesheet"/>
+		<script src="lib/jq/jquery.js"></script>
+		<script src="lib/jqm/jquery.mobile.js"></script>
+		<!--End includes-->
+		<!--Knockout includes-->
+		<script src="lib/ko/knockout.js"></script>
+		<!--End includes-->
+	</head>
+	<body>
+		<div id="home" data-role="page" data-title="ODMarket | Home">
+			<div data-role="header" data-position="fixed">
+				<h1>ODMarket</h1>
+			</div>
+			<div data-role="content">
+				<ul data-role="listview" data-inset="true">
+					<li>
+						<a href="#products">Products</a>
+					</li>
+					<li>
+						<a href="#">Categories</a>
+					</li>
+					<li>
+						<a href="#">Suppliers</a>
+					</li>
+				</ul>
+			</div>
+			<div data-role="footer" data-position="fixed">
+				<h3><!--Blank--></h3>
+			</div>
+		</div>
+		<div id="products" data-role="page" data-title="ODMarket | Products">
+			<div data-role="header" data-position="fixed">
+				<h1>Products</h1>
+				<a href="index.html" data-role="button" data-icon="back" data-iconpos="notext">Back</a>
+			</div>
+			<div data-role="content">
+				<ul data-bind="foreach: productData" data-role="listview" data-filter="true">
+					<li>
+						<a data-bind="text: Name, click: $root.chooseProduct" href="#product-details"></a>
+						<span data-bind="text: Price" class="ui-li-count"></span>
+					</li>
+				</ul>
+			</div>
+			<div data-role="footer" data-position="fixed">
+				<h3><!--Blank--></h3>
+			</div>
+		</div>
+		<div id="product-details" data-role="page" data-bind="pagebeforeshow: refreshUI('#product-details', 'page')">
+			<div data-role="header">
+				<h1>Product Details</h1>
+				<a href="index.html" data-role="button" data-icon="home" data-iconpos="notext">Home</a>
+				<a href="index.html#products" data-role="button" data-icon="back" data-iconpos="notext">Back</a>
+			</div>
+			<div data-role="content" data-bind="with: chosenProductData">
+				<div data-role="fieldcontain">
+					<label for="product-name">Name:</label>
+					<input id="product-name" data-bind="value: Name" disabled="true"/>
+				</div>
+				<div data-role="fieldcontain">
+					<label for="product-price">Price:</label>
+					<input id="product-price" data-bind="value: Price" disabled="true"/>
+				</div>
+				<div data-role="fieldcontain">
+					<label for="product-desc">Description:</label>
+					<textarea id="product-desc" data-bind="value: Description" disabled="true"></textarea>
+				</div>
+			</div>
+			<div data-role="footer" data-position="fixed">
+				<h3><!--Blank--></h3>
+			</div>
+		</div>
+		<!--App Logic-->
+		<script>
+			function AppViewModel() {
+				var self = this;
+				//To avoid some tricky bugs.
+
+				//Data
+				self.productData = ko.observableArray([]);
+				self.chosenProductData = ko.observable();
+
+				//Behaviours
+				self.chooseProduct = function(product) {
+					self.chosenProductData(product);
+				}
+
+				self.loadProductData = function() {
+					$.get('/api/products', function(data) {
+						self.productData(data.d);
+						self.chosenProductData(data.d[0]);
+						//Choose the first product by default.
+					});
+				}
+				//Helpers
+				self.refreshUI = function(ui, ctor) {
+					$(ui)[ctor]();
+					//Calls specified constructor.
+				}
+			};
+
+			var vm = new AppViewModel();
+
+			vm.loadProductData();
+
+			ko.applyBindings(vm);
+		</script>
+	</body>
 </html>
